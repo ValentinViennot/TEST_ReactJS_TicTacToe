@@ -24,7 +24,7 @@ it('a click on a box to call the related callback', () => {
   expect(handleTest).toHaveBeenCalled();
 });
 
-it('click on an empty (TIC) box to change its state to not empty', () => {
+it('a click on an empty (TIC) box to change its state to not empty', () => {
   const a = enzyme.mount(<App />);
   expect(a.state()).toEqual({ "grid": [0, 0, 0, 0, 0, 0, 0, 0, 0], "player": 0 });
   a.find(".grid").children().forEach(b => {
@@ -35,19 +35,11 @@ it('click on an empty (TIC) box to change its state to not empty', () => {
   expect(app.state.grid.every((c) => c !== State.TIC)).toBe(true);
 });
 
-it('click on a not empty box not to change its state', () => {
+it('click on a not empty box not to change App\'s state', () => {
   const a = enzyme.mount(<App />);
   expect(a.state()).toEqual({ "grid": [0, 0, 0, 0, 0, 0, 0, 0, 0], "player": 0 });
-  a.find(".grid").children().forEach((b) => {
-    b.simulate("click");
-  });
-  const app = a.update().instance() as unknown as App;
-  expect(app.state).toHaveProperty('grid');
-  expect(app.state.grid.every((c) => c !== State.TIC)).toBe(true);
-  const state = a.state();
-  a.find(".grid").children().forEach((b, index) => {
-    b.simulate("click");
-    a.update();
-  });
-  expect(a.update().state()).toEqual(state);
+  a.find(".grid").childAt(0).simulate("click");
+  expect(a.update().state()).toEqual({ "grid": [2, 0, 0, 0, 0, 0, 0, 0, 0], "player": 1 });
+  a.find(".grid").childAt(0).simulate("click");
+  expect(a.update().state()).toEqual({ "grid": [2, 0, 0, 0, 0, 0, 0, 0, 0], "player": 1 });
 });

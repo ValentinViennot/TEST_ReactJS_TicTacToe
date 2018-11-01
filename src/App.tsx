@@ -41,8 +41,11 @@ class App extends React.Component<{}, IState> {
 
   private changeState(index: number) {
     const grid = this.state.grid;
-    grid[index] = this.state.player === 1 ? State.TAC : State.TOE;
-    this.setState({ grid, player: 1 - this.state.player });
+    if (grid[index] === State.TIC) {
+      grid[index] = this.state.player === 1 ? State.TAC : State.TOE;
+      this.setState({ grid, player: 1 - this.state.player });
+    }
+    return null;
   }
 
 }
