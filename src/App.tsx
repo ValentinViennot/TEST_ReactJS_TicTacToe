@@ -8,6 +8,8 @@ interface IState {
   player: number;
 }
 
+const players: State[] = [State.TAC, State.TOE];
+
 class App extends React.Component<{}, IState> {
 
   public state: IState = {
@@ -23,14 +25,25 @@ class App extends React.Component<{}, IState> {
   public render() {
     return (
       <>
-        <header>
-          Player {this.state.player + 1}
-        </header>
+        {this.renderHeader()}
         <div className="grid">
           {this.renderGameGrid()}
         </div>
       </>
     );
+  }
+
+  private renderHeader() {
+    const ww = this.whoWon();
+    return ww >= 0 ? (
+      <header>
+        Player {ww + 1} won!
+      </header>
+    ) : (
+        <header>
+          Player {this.state.player + 1}
+        </header>
+      );
   }
 
   private renderGameGrid() {
@@ -39,10 +52,30 @@ class App extends React.Component<{}, IState> {
     );
   }
 
+  private whoWon(): number {
+    const grid = this.state.grid;
+    // rows
+    for (let i = 0; i < 3; ++i) {
+      let j = i * 3;
+      const upper = i * 3 + 3;
+      let player: State = grid[j];
+      for (j = j + 1; j < upper; ++j) {
+        if (grid[j] !== player) {
+          break;
+        }
+      }
+      if (j === upper)
+        return players.indexOf(grid[j - 1]);
+    }
+    // columns
+    // diag
+    return -1;
+  }
+
   private changeState(index: number) {
     const grid = this.state.grid;
     if (grid[index] === State.TIC) {
-      grid[index] = this.state.player === 1 ? State.TAC : State.TOE;
+      grid[index] = players[this.state.player];
       this.setState({ grid, player: 1 - this.state.player });
     }
     return null;

@@ -35,11 +35,50 @@ it('a click on an empty (TIC) box to change its state to not empty', () => {
   expect(app.state.grid.every((c) => c !== State.TIC)).toBe(true);
 });
 
-it('click on a not empty box not to change App\'s state', () => {
+it('a click on a not empty box not to change App\'s state', () => {
   const a = enzyme.mount(<App />);
   expect(a.state()).toEqual({ "grid": [0, 0, 0, 0, 0, 0, 0, 0, 0], "player": 0 });
   a.find(".grid").childAt(0).simulate("click");
-  expect(a.update().state()).toEqual({ "grid": [2, 0, 0, 0, 0, 0, 0, 0, 0], "player": 1 });
+  expect(a.update().state()).toEqual({ "grid": [1, 0, 0, 0, 0, 0, 0, 0, 0], "player": 1 });
   a.find(".grid").childAt(0).simulate("click");
-  expect(a.update().state()).toEqual({ "grid": [2, 0, 0, 0, 0, 0, 0, 0, 0], "player": 1 });
+  expect(a.update().state()).toEqual({ "grid": [1, 0, 0, 0, 0, 0, 0, 0, 0], "player": 1 });
 });
+
+
+it('a victory to end the game and tell whos the winner (line)', () => {
+  const a = enzyme.mount(<App />);
+  expect(a.state()).toEqual({ "grid": [0, 0, 0, 0, 0, 0, 0, 0, 0], "player": 0 });
+  // player 1
+  a.find(".grid").childAt(0).simulate("click");
+  // player 2
+  a.update().find(".grid").childAt(3).simulate("click");
+  // player 1
+  a.update().find(".grid").childAt(1).simulate("click");
+  // player 2
+  a.update().find(".grid").childAt(4).simulate("click");
+  // player 1
+  a.update().find(".grid").childAt(2).simulate("click");
+  // end
+  expect(a.update().state()).toEqual({ "grid": [1, 1, 1, 2, 2, 0, 0, 0, 0], "player": 1 });
+  expect(a.find("header").html()).toEqual("<header>Player 1 won!</header>");
+});
+
+it('a victory to end the game and tell whos the winner (column)', () => {
+  const a = enzyme.mount(<App />);
+  expect(a.state()).toEqual({ "grid": [0, 0, 0, 0, 0, 0, 0, 0, 0], "player": 0 });
+  // player 1
+  a.find(".grid").childAt(0).simulate("click");
+  // player 2
+  a.update().find(".grid").childAt(1).simulate("click");
+  // player 1
+  a.update().find(".grid").childAt(3).simulate("click");
+  // player 2
+  a.update().find(".grid").childAt(2).simulate("click");
+  // player 1
+  a.update().find(".grid").childAt(6).simulate("click");
+  // end
+  expect(a.update().state()).toEqual({ "grid": [1, 2, 2, 1, 0, 0, 1, 0, 0], "player": 1 });
+  expect(a.find("header").html()).toEqual("<header>Player 1 won!</header>");
+});
+
+
