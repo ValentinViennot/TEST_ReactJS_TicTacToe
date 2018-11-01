@@ -41,8 +41,8 @@ class App extends React.Component<{}, IState> {
       </header>
     ) : (
         <header>
-          Player {ww + 1} won!
-      </header>
+          <b>Player {ww + 1} won!</b>
+        </header>
       );
   }
 
@@ -56,15 +56,18 @@ class App extends React.Component<{}, IState> {
     const grid = this.state.grid;
     for (let i = 0; i < 3; ++i) {
       // rows
-      if (grid[i * 3] === grid[i * 3 + 1] && grid[i * 3] === grid[i * 3 + 2])
+      if (grid[i * 3] === grid[i * 3 + 1] && grid[i * 3] === grid[i * 3 + 2]) {
         return players.indexOf(grid[i * 3]);
+      }
       // columns
-      if (grid[i] === grid[i + 3] && grid[i] === grid[i + 6])
+      if (grid[i] === grid[i + 3] && grid[i] === grid[i + 6]) {
         return players.indexOf(grid[i]);
+      }
     }
     // diags
-    if ((grid[0] === grid[4] && grid[4] === grid[8]) || (grid[2] === grid[4] && grid[4] === grid[6]))
+    if ((grid[0] === grid[4] && grid[4] === grid[8]) || (grid[2] === grid[4] && grid[4] === grid[6])) {
       return players.indexOf(grid[4]);
+    }
     return -1;
   }
 
