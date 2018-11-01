@@ -45,7 +45,7 @@ it('a click on a not empty box not to change App\'s state', () => {
 });
 
 
-it('a victory to end the game and tell whos the winner (line)', () => {
+it('a victory to end the game and tell whos the winner (row)', () => {
   const a = enzyme.mount(<App />);
   expect(a.state()).toEqual({ "grid": [0, 0, 0, 0, 0, 0, 0, 0, 0], "player": 0 });
   // player 1
@@ -78,6 +78,24 @@ it('a victory to end the game and tell whos the winner (column)', () => {
   a.update().find(".grid").childAt(6).simulate("click");
   // end
   expect(a.update().state()).toEqual({ "grid": [1, 2, 2, 1, 0, 0, 1, 0, 0], "player": 1 });
+  expect(a.find("header").html()).toEqual("<header>Player 1 won!</header>");
+});
+
+it('a victory to end the game and tell whos the winner (diag)', () => {
+  const a = enzyme.mount(<App />);
+  expect(a.state()).toEqual({ "grid": [0, 0, 0, 0, 0, 0, 0, 0, 0], "player": 0 });
+  // player 1
+  a.find(".grid").childAt(0).simulate("click");
+  // player 2
+  a.update().find(".grid").childAt(1).simulate("click");
+  // player 1
+  a.update().find(".grid").childAt(4).simulate("click");
+  // player 2
+  a.update().find(".grid").childAt(2).simulate("click");
+  // player 1
+  a.update().find(".grid").childAt(8).simulate("click");
+  // end
+  expect(a.update().state()).toEqual({ "grid": [1, 2, 2, 0, 1, 0, 0, 0, 1], "player": 1 });
   expect(a.find("header").html()).toEqual("<header>Player 1 won!</header>");
 });
 

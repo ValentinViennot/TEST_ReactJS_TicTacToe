@@ -54,18 +54,24 @@ class App extends React.Component<{}, IState> {
 
   private whoWon(): number {
     const grid = this.state.grid;
-    // rows
     for (let i = 0; i < 3; ++i) {
+      // test rows
       let j = i * 3;
-      const upper = i * 3 + 3;
+      let upper = i * 3 + 3;
       let player: State = grid[j];
       for (j = j + 1; j < upper; ++j) {
-        if (grid[j] !== player) {
-          break;
-        }
+        if (grid[j] !== player) break;
       }
       if (j === upper)
-        return players.indexOf(grid[j - 1]);
+        return players.indexOf(grid[i * 3]);
+      // test columns
+      upper = 3 * 3;
+      player = grid[i];
+      for (j = 3; j < upper; j += 3) {
+        if (grid[i + j] !== player) break;
+      }
+      if (j === upper)
+        return players.indexOf(grid[i]);
     }
     // columns
     // diag
