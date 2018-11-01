@@ -1,14 +1,14 @@
 import * as React from 'react';
-import './Case.css';
+import './Box.css';
 import { State } from './types';
 
 interface IProps {
-    key: number;
+    index: number;
     state: State;
     onChangeState: any;
 }
 
-class Case extends React.Component<IProps, {}> {
+class Box extends React.Component<IProps, {}> {
 
     constructor(props: IProps) {
         super(props);
@@ -22,7 +22,7 @@ class Case extends React.Component<IProps, {}> {
     }
 
     private handleChangeState() {
-        this.props.onChangeState(this.props.key);
+        this.props.onChangeState(this.props.index);
     }
 
     private getClassName(state: State) {
@@ -38,4 +38,4 @@ class Case extends React.Component<IProps, {}> {
 
 }
 
-export default Case;
+export default Box;

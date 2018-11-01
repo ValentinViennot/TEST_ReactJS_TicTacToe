@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './App.css';
 import { State } from './types';
-import Case from './Case';
+import Box from './Box';
 
 interface IState {
   grid: State[];
@@ -35,7 +35,7 @@ class App extends React.Component<{}, IState> {
 
   private renderGameGrid() {
     return this.state.grid.map(
-      (state, index) => (<Case key={index} state={state} onChangeState={this.changeState} />)
+      (state, index) => (<Box key={index} index={index} state={state} onChangeState={this.changeState} />)
     );
   }
 
