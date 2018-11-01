@@ -35,14 +35,14 @@ class App extends React.Component<{}, IState> {
 
   private renderHeader() {
     const ww = this.whoWon();
-    return ww >= 0 ? (
+    return ww < 0 ? (
       <header>
-        Player {ww + 1} won!
+        Player {this.state.player + 1}
       </header>
     ) : (
         <header>
-          Player {this.state.player + 1}
-        </header>
+          Player {ww + 1} won!
+      </header>
       );
   }
 
@@ -55,26 +55,16 @@ class App extends React.Component<{}, IState> {
   private whoWon(): number {
     const grid = this.state.grid;
     for (let i = 0; i < 3; ++i) {
-      // test rows
-      let j = i * 3;
-      let upper = i * 3 + 3;
-      let player: State = grid[j];
-      for (j = j + 1; j < upper; ++j) {
-        if (grid[j] !== player) break;
-      }
-      if (j === upper)
+      // rows
+      if (grid[i * 3] === grid[i * 3 + 1] && grid[i * 3] === grid[i * 3 + 2])
         return players.indexOf(grid[i * 3]);
-      // test columns
-      upper = 3 * 3;
-      player = grid[i];
-      for (j = 3; j < upper; j += 3) {
-        if (grid[i + j] !== player) break;
-      }
-      if (j === upper)
+      // columns
+      if (grid[i] === grid[i + 3] && grid[i] === grid[i + 6])
         return players.indexOf(grid[i]);
     }
-    // columns
-    // diag
+    // diags
+    if ((grid[0] === grid[4] && grid[4] === grid[8]) || (grid[2] === grid[4] && grid[4] === grid[6]))
+      return players.indexOf(grid[4]);
     return -1;
   }
 
