@@ -3,10 +3,10 @@
     border: 1px solid white;
 }
 
-.tac {
+.case.tac {
     background-color: green;
 }
 
-.toe {
+.case.toe {
     background-color: yellow;
 }
