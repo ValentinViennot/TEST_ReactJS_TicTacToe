@@ -1,0 +1,12 @@
+.case {
+    cursor: pointer;
+    border: 1px solid white;
+}
+
+.case.tac {
+    background-color: green;
+}
+
+.case.toe {
+    background-color: yellow;
+}

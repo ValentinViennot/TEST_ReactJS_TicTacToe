@@ -1,0 +1,19 @@
+.header {
+    color: white; 
+    padding: 5px;
+    text-align: center;
+    font-size: 2em;
+    line-height: 100px;
+}
+
+.header.tac {
+    color: green;
+}
+
+.header.toe {
+    color: yellow;
+}
+
+.header.won {
+    font-weight: bold;
+}
