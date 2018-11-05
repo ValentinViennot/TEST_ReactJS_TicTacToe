@@ -1,6 +1,6 @@
 import * as React from 'react';
 import './Header.css';
-import { getClassNameFromPlayer } from 'src/commons/utils';
+import { getClassNameFromPlayer } from '../../commons/utils';
 
 interface IProps {
     player: number;

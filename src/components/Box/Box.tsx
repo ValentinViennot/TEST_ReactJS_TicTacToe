@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './Box.css';
-import { State } from '../commons/types';
-import { getClassNameFromState } from '../commons/utils';
+import { State } from '../../commons/types';
+import { getClassNameFromState } from '../../commons/utils';
 
 interface IProps {
     index: number;

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import './Grid.css';
-import { State } from '../commons/types';
-import Box from './Box';
-import { getPlayerFromState, getStateFromPlayer } from '../commons/utils';
+import { State } from '../../commons/types';
+import Box from '../Box/Box';
+import { getPlayerFromState, getStateFromPlayer } from '../../commons/utils';
 
 interface IState {
     grid: State[];
@@ -47,6 +47,7 @@ class Grid extends React.Component<IProps, IState> {
         );
     }
 
+    // TODO: make it work for NxN grids
     private whoWon(): number {
         const grid = this.state.grid;
         for (let i = 0; i < 3; ++i) {

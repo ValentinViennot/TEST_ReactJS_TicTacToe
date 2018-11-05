@@ -1,7 +1,9 @@
 import * as React from 'react';
 import './App.css';
-import Grid from './components/Grid';
-import Header from './components/Header';
+import Grid from './components/Grid/Grid';
+import Header from './components/Header/Header';
+
+const SIDE_SIZE: number = 3;
 
 interface IState {
   player: number;
@@ -13,7 +15,7 @@ class App extends React.Component<{}, IState> {
 
   public state: IState = {
     player: 0,
-    won: false
+    won: false,
   }
 
   constructor(props: {}) {
@@ -26,7 +28,7 @@ class App extends React.Component<{}, IState> {
     return (
       <>
         <Header player={this.state.player} won={this.state.won} />
-        <Grid onWin={this.onWin} onPlayerChange={this.handlePlayerChange} sideSize={3} />
+        <Grid onWin={this.onWin} onPlayerChange={this.handlePlayerChange} sideSize={SIDE_SIZE} />
       </>
     );
   }
